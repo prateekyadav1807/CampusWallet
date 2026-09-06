@@ -1,0 +1,17 @@
+{
+  "name": "CampusWallet",
+  "short_name": "CampusWallet",
+  "description": "Your Student Finance Companion — track mess bills, semester fees, pocket money and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#0f766e",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
