@@ -81,7 +81,10 @@ const login = async (req, res) => {
 // @access  Private
 const getMe = async (req, res) => {
   const user = await User.findById(req.user._id);
-  res.status(200).json({ success: true, user });
+  const avatarUrl = user.avatar
+    ? `${process.env.BACKEND_URL || 'http://localhost:5000'}/uploads/avatars/${user.avatar}`
+    : null;
+  res.status(200).json({ success: true, user: { ...user.toObject(), avatarUrl } });
 };
 
 // @desc    Forgot password
