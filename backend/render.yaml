@@ -29,7 +29,7 @@ services:
       - key: EMAIL_FROM
         value: CampusWallet <noreply@campuswallet.app>
       - key: FRONTEND_URL
-        value: https://campuswallet.vercel.app
+        value: https://campus-wallet-pi.vercel.app
       - key: MAX_FILE_SIZE
         value: 5242880
       - key: RATE_LIMIT_WINDOW
