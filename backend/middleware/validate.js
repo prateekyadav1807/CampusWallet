@@ -36,11 +36,11 @@ const registerValidator = [
     .trim().notEmpty().withMessage('Course / Degree is required')
     .isLength({ max: 100 }).withMessage('Course name too long'),
   // Optional student fields — only validate format if provided
-  body('branch').optional().trim().isLength({ max: 100 }).withMessage('Branch name too long'),
-  body('yearOfStudy').optional().isIn(['','1st Year','2nd Year','3rd Year','4th Year','5th Year','PG 1st Year','PG 2nd Year','PhD']).withMessage('Invalid year of study'),
-  body('semester').optional().isInt({ min: 1, max: 12 }).withMessage('Semester must be 1–12'),
-  body('studentId').optional().trim().isLength({ max: 30 }).withMessage('Student ID too long'),
-  body('graduationYear').optional().isInt({ min: 2020, max: 2040 }).withMessage('Invalid graduation year'),
+  body('branch').optional({ checkFalsy: true }).trim().isLength({ max: 100 }).withMessage('Branch name too long'),
+  body('yearOfStudy').optional({ checkFalsy: true }).isIn(['1st Year','2nd Year','3rd Year','4th Year','5th Year','PG 1st Year','PG 2nd Year','PhD']).withMessage('Invalid year of study'),
+  body('semester').optional({ checkFalsy: true }).isInt({ min: 1, max: 12 }).withMessage('Semester must be 1–12'),
+  body('studentId').optional({ checkFalsy: true }).trim().isLength({ max: 30 }).withMessage('Student ID too long'),
+  body('graduationYear').optional({ checkFalsy: true }).isInt({ min: 2020, max: 2040 }).withMessage('Invalid graduation year'),
   validate
 ];
 

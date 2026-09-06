@@ -35,14 +35,27 @@ const sendTokenResponse = (user, statusCode, res, message) => {
 // @route   POST /api/auth/register
 // @access  Public
 const register = async (req, res) => {
-  const { name, email, password, college, course, semester } = req.body;
+  const {
+    name, email, password, college, course,
+    branch, yearOfStudy, semester, studentId, graduationYear,
+  } = req.body;
 
   const existingUser = await User.findOne({ email });
   if (existingUser) {
     return res.status(409).json({ success: false, message: '📧 Email already registered. Please login.' });
   }
 
-  const user = await User.create({ name, email, password, college, course, semester });
+  // Strip empty-string optional fields so Mongoose enum/min validators don't fire
+  const userData = {
+    name, email, password, college, course,
+    ...(branch         && { branch }),
+    ...(yearOfStudy    && { yearOfStudy }),
+    ...(semester       && { semester: parseInt(semester) }),
+    ...(studentId      && { studentId }),
+    ...(graduationYear && { graduationYear: parseInt(graduationYear) }),
+  };
+
+  const user = await User.create(userData);
 
   // Send welcome email (non-blocking)
   try { await sendWelcomeEmail(user); } catch (e) { /* ignore email errors */ }
