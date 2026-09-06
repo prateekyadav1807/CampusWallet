@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: trackwise-api
+    name: campuswallet-api
     env: node
     region: singapore
     plan: free
@@ -11,13 +11,13 @@ services:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: 5000
-      - key: MONGODB_URI
+        value: 10000
+      - key: MONGO_URI
         sync: false
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_EXPIRE
-        value: 7d
+        value: 30d
       - key: EMAIL_HOST
         value: smtp.gmail.com
       - key: EMAIL_PORT
@@ -27,9 +27,9 @@ services:
       - key: EMAIL_PASS
         sync: false
       - key: EMAIL_FROM
-        value: TrackWise <noreply@trackwise.app>
+        value: CampusWallet <noreply@campuswallet.app>
       - key: FRONTEND_URL
-        value: https://trackwise-app.vercel.app
+        value: https://campuswallet.vercel.app
       - key: MAX_FILE_SIZE
         value: 5242880
       - key: RATE_LIMIT_WINDOW
