@@ -63,6 +63,7 @@ const baseTemplate = (content) => `
 
 // Send welcome email
 const sendWelcomeEmail = async (user) => {
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) return; // skip if not configured
   const transporter = createTransporter();
   const content = `
     <h2>🎉 Welcome to TrackWise, ${user.name}!</h2>
@@ -91,6 +92,7 @@ const sendWelcomeEmail = async (user) => {
 
 // Send password reset email
 const sendPasswordResetEmail = async (user, resetUrl) => {
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) return;
   const transporter = createTransporter();
   const content = `
     <h2>🔐 Reset Your Password</h2>
@@ -115,6 +117,7 @@ const sendPasswordResetEmail = async (user, resetUrl) => {
 
 // Send budget alert email
 const sendBudgetAlertEmail = async (user, data) => {
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) return;
   const transporter = createTransporter();
   const content = `
     <h2>⚠️ Budget Alert</h2>
@@ -139,6 +142,7 @@ const sendBudgetAlertEmail = async (user, data) => {
 
 // Send subscription renewal reminder
 const sendSubscriptionReminderEmail = async (user, subscription) => {
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) return;
   const transporter = createTransporter();
   const renewalDate = new Date(subscription.nextRenewalDate).toLocaleDateString('en-IN', {
     day: 'numeric', month: 'long', year: 'numeric'
@@ -167,6 +171,7 @@ const sendSubscriptionReminderEmail = async (user, subscription) => {
 
 // Send monthly summary email
 const sendMonthlySummaryEmail = async (user, summary) => {
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) return;
   const transporter = createTransporter();
   const monthName = new Date(summary.year, summary.month - 1).toLocaleString('en-IN', { month: 'long', year: 'numeric' });
   const savingsRate = summary.totalIncome > 0

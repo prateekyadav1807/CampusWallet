@@ -57,8 +57,10 @@ const register = async (req, res) => {
 
   const user = await User.create(userData);
 
-  // Send welcome email (non-blocking)
-  try { await sendWelcomeEmail(user); } catch (e) { /* ignore email errors */ }
+  // Send welcome email — completely non-blocking, never fails the request
+  setImmediate(async () => {
+    try { await sendWelcomeEmail(user); } catch (_) {}
+  });
 
   sendTokenResponse(user, 201, res, '🎉 Account created successfully! Welcome to TrackWise.');
 };
