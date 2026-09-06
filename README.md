@@ -1,4 +1,4 @@
-# 💰 TrackWise — Track Smart. Spend Wise.
+# 💰 Campus Connect — Track Smart. Spend Wise.
 
 A production-ready **Student Expense & Budget Management Platform** built with React + Node.js + MongoDB.
 
