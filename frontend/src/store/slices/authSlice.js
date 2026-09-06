@@ -71,7 +71,12 @@ export const changePassword = createAsyncThunk('auth/changePassword', async (dat
   }
 });
 
-// ── Slice ────────────────────────────────────────────────────────────────────
+// ── Helper: always build avatarUrl from the frontend's known backend base ──
+const buildAvatarUrl = (filename) => {
+  if (!filename) return null;
+  const base = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+  return `${base}/uploads/avatars/${filename}`;
+};
 
 const authSlice = createSlice({
   name: 'auth',
@@ -107,9 +112,11 @@ const authSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
         const { user, token } = action.payload;
-        state.user = user; state.token = token; state.isAuthenticated = true;
+        const avatarUrl = buildAvatarUrl(user.avatar);
+        state.user = { ...user, avatarUrl };
+        state.token = token; state.isAuthenticated = true;
         localStorage.setItem('tw_token', token);
-        localStorage.setItem('tw_user', JSON.stringify(user));
+        localStorage.setItem('tw_user', JSON.stringify(state.user));
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         toast.success(action.payload.message || '🎉 Welcome to TrackWise!');
       })
@@ -124,9 +131,11 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         const { user, token } = action.payload;
-        state.user = user; state.token = token; state.isAuthenticated = true;
+        const avatarUrl = buildAvatarUrl(user.avatar);
+        state.user = { ...user, avatarUrl };
+        state.token = token; state.isAuthenticated = true;
         localStorage.setItem('tw_token', token);
-        localStorage.setItem('tw_user', JSON.stringify(user));
+        localStorage.setItem('tw_user', JSON.stringify(state.user));
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         toast.success(action.payload.message || '👋 Welcome back!');
       })
@@ -138,8 +147,10 @@ const authSlice = createSlice({
     // Get me
     builder
       .addCase(getMe.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        localStorage.setItem('tw_user', JSON.stringify(action.payload.user));
+        const user = action.payload.user;
+        const avatarUrl = buildAvatarUrl(user.avatar);
+        state.user = { ...user, avatarUrl };
+        localStorage.setItem('tw_user', JSON.stringify(state.user));
       })
       .addCase(getMe.rejected, (state) => {
         state.user = null; state.token = null; state.isAuthenticated = false;
@@ -149,8 +160,10 @@ const authSlice = createSlice({
     // Update profile
     builder
       .addCase(updateProfile.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        localStorage.setItem('tw_user', JSON.stringify(action.payload.user));
+        const user = action.payload.user;
+        const avatarUrl = buildAvatarUrl(user.avatar);
+        state.user = { ...user, avatarUrl };
+        localStorage.setItem('tw_user', JSON.stringify(state.user));
         toast.success('✅ Profile updated!');
       })
       .addCase(updateProfile.rejected, (_, action) => toast.error(action.payload));
@@ -158,11 +171,8 @@ const authSlice = createSlice({
     // Upload avatar
     builder
       .addCase(uploadAvatar.fulfilled, (state, action) => {
-        const filename = action.payload.avatar;
-        // Build URL client-side so it's always correct regardless of cached virtualrUrl
-        const backendUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
-        const avatarUrl  = filename ? `${backendUrl}/uploads/avatars/${filename}` : null;
-        state.user = { ...state.user, avatar: filename, avatarUrl };
+        const avatarUrl = buildAvatarUrl(action.payload.avatar);
+        state.user = { ...state.user, avatar: action.payload.avatar, avatarUrl };
         localStorage.setItem('tw_user', JSON.stringify(state.user));
         toast.success('Profile picture updated!');
       })

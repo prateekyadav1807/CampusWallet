@@ -30,6 +30,8 @@ services:
         value: CampusWallet <noreply@campuswallet.app>
       - key: FRONTEND_URL
         value: https://campus-wallet-pi.vercel.app
+      - key: BACKEND_URL
+        value: https://campuswallet-gb1w.onrender.com
       - key: MAX_FILE_SIZE
         value: 5242880
       - key: RATE_LIMIT_WINDOW
