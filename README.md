@@ -1,52 +1,81 @@
-# 💰 Campus Connect — Track Smart. Spend Wise.
+# 💰 CampusWallet — Student Expense & Budget Management Platform
 
-A production-ready **Student Expense & Budget Management Platform** built with React + Node.js + MongoDB.
+A full-stack Student Expense & Budget Management Platform built with React, Node.js, Express.js, and MongoDB.
+
+## 🌐 Live Demo
+
+🔗 https://campus-wallet-pi.vercel.app/
 
 ---
 
 ## 🚀 Tech Stack
 
-| Layer      | Technology                                              |
-|------------|---------------------------------------------------------|
-| Frontend   | React 18, Vite, Tailwind CSS, Framer Motion, Recharts   |
-| State      | Redux Toolkit                                           |
-| Backend    | Node.js, Express.js                                     |
-| Database   | MongoDB Atlas + Mongoose                                |
-| Auth       | JWT + bcryptjs                                          |
-| Email      | Nodemailer (Gmail SMTP)                                 |
-| Reports    | PDFKit + ExcelJS                                        |
-| Deployment | Vercel (frontend) + Render (backend)                    |
+| Layer | Technology |
+|--------|------------|
+| Frontend | React.js, Vite, Tailwind CSS |
+| State Management | Redux Toolkit |
+| Backend | Node.js, Express.js |
+| Database | MongoDB Atlas, Mongoose |
+| Authentication | JWT, bcryptjs |
+| Reports | PDFKit, ExcelJS |
+| Deployment | Vercel, Render |
+
+---
+
+## 🎯 Key Highlights
+
+- MERN Stack Application
+- Secure JWT Authentication
+- Expense & Budget Management
+- Interactive Analytics Dashboard
+- Expense Splitting Functionality
+- PDF & Excel Report Generation
+- Admin Dashboard
+- Responsive User Interface
+
+---
+
+## ✨ Features
+
+- 🔐 User Authentication (Login, Register, Forgot Password)
+- 💸 Expense & Income Tracking
+- 🎯 Monthly Budget Planning
+- 📊 Analytics Dashboard
+- 👥 Flatmate Expense Splitting
+- 📋 PDF & Excel Report Generation
+- 🛡️ Admin Dashboard
+- 🌙 Dark / Light Mode
+- 📱 Responsive Design
 
 ---
 
 ## 📁 Project Structure
 
-```
-TrackWise/
+```text
+CampusWallet/
 ├── backend/
-│   ├── config/          # MongoDB connection
-│   ├── controllers/     # Route handlers (13 controllers)
-│   ├── middleware/       # Auth, error handler, validation, upload
-│   ├── models/          # Mongoose schemas (11 models)
-│   ├── routes/          # Express routers (14 routes)
-│   ├── services/        # Email, insights, reports, cron
-│   ├── utils/           # Helper functions
-│   ├── uploads/         # User avatars & generated reports
-│   ├── .env             # Environment variables
-│   └── server.js        # Entry point
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── services/
+│   ├── utils/
+│   ├── uploads/
+│   └── server.js
 │
 └── frontend/
-    ├── public/          # favicon.svg, manifest, robots.txt
+    ├── public/
     └── src/
-        ├── components/  # Layout (Sidebar/Navbar), UI components
-        ├── hooks/       # useApi, useFetch
-        ├── pages/       # All page components
-        │   ├── auth/    # Login, Register, ForgotPassword, ResetPassword
-        │   ├── admin/   # AdminDashboard, AdminUsers
-        │   └── StudentFeatures/  # Fees, Subscriptions, PlacementPrep
-        ├── services/    # Axios API instance
-        ├── store/       # Redux store + slices (auth, theme, notifications)
-        └── utils/       # helpers, constants, formatters
+        ├── components/
+        ├── hooks/
+        ├── pages/
+        │   ├── auth/
+        │   ├── admin/
+        │   └── StudentFeatures/
+        ├── services/
+        ├── store/
+        └── utils/
 ```
 
 ---
@@ -54,118 +83,104 @@ TrackWise/
 ## ⚡ Local Setup
 
 ### Prerequisites
-- Node.js ≥ 18
-- MongoDB Atlas account (free tier works)
-- Gmail account with App Password for email
 
-### 1. Clone & install
+- Node.js 18+
+- MongoDB Atlas Account
+
+### Clone Repository
 
 ```bash
-git clone https://github.com/yourname/trackwise.git
-cd TrackWise
-
-# Backend
-cd backend && npm install
-
-# Frontend
-cd ../frontend && npm install
+git clone https://github.com/prateekyadav1807/CampusWallet.git
+cd CampusWallet
 ```
 
-### 2. Configure environment
+### Install Dependencies
 
-**Backend** — copy and fill `backend/.env`:
+Backend:
+
+```bash
+cd backend
+npm install
+```
+
+Frontend:
+
+```bash
+cd frontend
+npm install
+```
+
+### Environment Variables
+
+Create a `.env` file inside the backend folder:
+
 ```env
 PORT=5000
 NODE_ENV=development
-MONGODB_URI=mongodb+srv://<user>:<pass>@cluster0.xxxxx.mongodb.net/trackwise
-JWT_SECRET=your_long_random_secret_here
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
 JWT_EXPIRE=7d
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
-EMAIL_USER=your@gmail.com
-EMAIL_PASS=your_app_password
 FRONTEND_URL=http://localhost:5173
 ```
 
-**Frontend** — copy and fill `frontend/.env`:
+Create a `.env` file inside the frontend folder:
+
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
 
-### 3. Run
+### Run Application
+
+Backend:
 
 ```bash
-# Backend (terminal 1)
-cd backend && npm run dev
-
-# Frontend (terminal 2)
-cd frontend && npm run dev
+cd backend
+npm run dev
 ```
 
-App opens at **http://localhost:5173**  
-API runs at **http://localhost:5000**
+Frontend:
+
+```bash
+cd frontend
+npm run dev
+```
+
+Frontend URL:
+
+```text
+http://localhost:5173
+```
+
+Backend URL:
+
+```text
+http://localhost:5000
+```
 
 ---
 
-## 🌐 Deployment
+## 🗄️ Database
 
-### Backend → Render
-1. Push the `backend/` folder to a GitHub repo
-2. Create a new **Web Service** on [Render](https://render.com)
-3. Build command: `npm install`  
-   Start command: `npm start`
-4. Add all environment variables from `.env`
-5. Note your Render URL (e.g. `https://trackwise-api.onrender.com`)
+MongoDB Atlas is used for storing:
 
-### Frontend → Vercel
-1. Push the `frontend/` folder to GitHub
-2. Import on [Vercel](https://vercel.com)
-3. Set environment variable:  
-   `VITE_API_URL = https://trackwise-api.onrender.com/api`
-4. Deploy — Vercel auto-detects Vite
+- User Information
+- Expenses
+- Income Records
+- Budget Data
+- Group Expenses
+- Reports
 
 ---
 
-## 🗝️ API Reference
+## 🔒 Security Features
 
-| Module            | Base Path              | Methods                          |
-|-------------------|------------------------|----------------------------------|
-| Auth              | `/api/auth`            | register, login, forgot/reset pw |
-| Expenses          | `/api/expenses`        | CRUD + stats                     |
-| Income            | `/api/income`          | CRUD + stats                     |
-| Budget            | `/api/budgets`         | get, create/update, delete       |
-| Subscriptions     | `/api/subscriptions`   | CRUD + upcoming renewals         |
-| Student Fees      | `/api/student-fees`    | CRUD                             |
-| Placement         | `/api/placement`       | CRUD + category stats            |
-| Groups            | `/api/groups`          | CRUD + expenses + settlements    |
-| Analytics         | `/api/analytics`       | dashboard, trend, category, savings |
-| Insights          | `/api/insights`        | GET (AI-generated)               |
-| Notifications     | `/api/notifications`   | list, mark-read, delete          |
-| Reports           | `/api/reports`         | generate, download, delete       |
-| Admin             | `/api/admin`           | stats, users CRUD                |
-
----
-
-## ✨ Features
-
-- 🔐 JWT auth with forgot/reset password via email
-- 💸 Expense & income tracking with categories, filters, search, pagination
-- 🎯 Monthly budget planner with category limits, daily spend limit, alerts
-- 📊 Analytics dashboard — 6 Recharts visualisations (area, bar, pie, line, radial)
-- 🤖 AI spending insights (dynamic, comparing current vs previous month)
-- 🎓 Student fee tracker with payment progress and overdue detection
-- 📺 Subscription tracker with renewal reminders
-- 🏆 Placement prep expense tracker with outcome/certificate tracking
-- 👥 Flatmate expense splitter with automatic settlement calculation
-- 📋 PDF & Excel report generation and download
-- 🔔 Real-time notification system with cron-based alerts
-- 🛡️ Admin panel — platform stats, user management, activity monitoring
-- 🌙 Dark / Light mode toggle
-- 📱 Fully responsive (mobile, tablet, desktop)
-- 🔄 Cron jobs for subscription reminders and monthly summaries
+- JWT Authentication
+- Password Hashing using bcryptjs
+- Protected Routes
+- Environment Variable Configuration
 
 ---
 
 ## 📄 License
 
-MIT © 2026 TrackWise
+MIT License
